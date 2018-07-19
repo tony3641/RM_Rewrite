@@ -29,8 +29,10 @@
 
 
 #include "can_device.h"
+#include "motor_device.h"
 #include "detect_task.h"
 #include "sys.h"
+#include "motor_operation.h"
 
 /* 云台电机 */
 moto_measure_t moto_pit;
@@ -49,71 +51,14 @@ moto_measure_t moto_test;
   */
 void can1_recv_callback(uint32_t recv_id, uint8_t data[])
 {
-  switch (recv_id)
-  {
-    case CAN_3508_M1_ID:
-    {
-      moto_chassis[0].msg_cnt++ <= 50 ? get_moto_offset(&moto_chassis[0], data) : \
-      encoder_data_handle(&moto_chassis[0], data);
-      err_detector_hook(CHASSIS_M1_OFFLINE);
-    }
-    break;
-    case CAN_3508_M2_ID:
-    {
-      moto_chassis[1].msg_cnt++ <= 50 ? get_moto_offset(&moto_chassis[1], data) : \
-      encoder_data_handle(&moto_chassis[1], data);
-      err_detector_hook(CHASSIS_M2_OFFLINE);
-    }
-    break;
 
-    case CAN_3508_M3_ID:
-    {
-      moto_chassis[2].msg_cnt++ <= 50 ? get_moto_offset(&moto_chassis[2], data) : \
-      encoder_data_handle(&moto_chassis[2], data);
-      err_detector_hook(CHASSIS_M3_OFFLINE);
+	
+	  my_motor_t *motor = find_motor_instance(get_from_receive_id(recv_id));
+    if (motor != NULL) {
+        motor->motor_mesure->msg_cnt++ <= 50 ? get_moto_offset(motor->motor_mesure, data) : \
+         encoder_data_handle(motor->motor_mesure, data);
     }
-    break;
-    case CAN_3508_M4_ID:
-    {
-      moto_chassis[3].msg_cnt++ <= 50 ? get_moto_offset(&moto_chassis[3], data) : \
-      encoder_data_handle(&moto_chassis[3], data);
-      err_detector_hook(CHASSIS_M4_OFFLINE);
-    }
-    break;
-    case CAN_YAW_MOTOR_ID:
-    {
-      encoder_data_handle(&moto_yaw, data);
-      err_detector_hook(GIMBAL_YAW_OFFLINE);
-    }
-    break;
-    case CAN_PIT_MOTOR_ID:
-    {
-      encoder_data_handle(&moto_pit, data);
-      err_detector_hook(GIMBAL_PIT_OFFLINE);
-    }
-    break;
-    case CAN_TRIGGER_MOTOR_ID:
-    {
-      moto_trigger.msg_cnt++;
-      moto_trigger.msg_cnt <= 10 ? get_moto_offset(&moto_trigger, data) : encoder_data_handle(&moto_trigger, data);
-      err_detector_hook(TRIGGER_MOTO_OFFLINE);
-    }
-    break;
-    case CAN_test_moto_ID:
-    {
-      moto_test.msg_cnt++ <= 50 ? get_moto_offset(&moto_test, data) : \
-      encoder_data_handle(&moto_test, data);
-      
-    }
-    break;
-		
-		
-		
-    default:
-    {
-    }
-    break;
-  }
+	
 }
   
 /**
