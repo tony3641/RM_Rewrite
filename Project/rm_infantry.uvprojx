@@ -411,16 +411,6 @@
               <FileType>1</FileType>
               <FilePath>..\User\driver\motor_device.c</FilePath>
             </File>
-            <File>
-              <FileName>motor_operation.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\User\driver\motor_operation.h</FilePath>
-            </File>
-            <File>
-              <FileName>motor_device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\User\driver\motor_device.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -465,6 +455,11 @@
               <FileName>execute_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\app\execute_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>device_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\app\device_task.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -3,7 +3,34 @@
 #include "pid.h"
 #include "motor_operation.h"
 
-my_motor_t *motors[1]={&(my_motor_t){CAN_M1_ID,CAN_SEND_A}};
+#define motor &(my_motor_t)
+
+#define chassis_lf motors[0]
+#define chassis_lb motors[1]
+#define chassis_rf motors[2]
+#define chassis_rb motors[3]
+
+
+
+my_motor_t *motors[4]={
+motor{CAN_M1_ID,CAN_SEND_A},
+motor{CAN_M2_ID,CAN_SEND_A},
+motor{CAN_M3_ID,CAN_SEND_A},
+motor{CAN_M4_ID,CAN_SEND_A},
+};
+
+void motor_device_init(my_motor_t *instance){
+	if(1)//is 3508
+	{
+		pid_init(instance->pid_position,7000,2333,1.9,0,50);
+		pid_init(instance->pid_speed,7000,2333,14,0.0381,8.6);
+	}
+	else if(0)//is 2006
+	{
+		pid_init(instance->pid_position,7000,2333,0.85,0.0003,20);
+		pid_init(instance->pid_speed,7000,2333,12,0.0001,8);
+	}
+}
 
 void motor_device_run(my_motor_t *instance) {
 	
@@ -92,7 +119,7 @@ motor_can_receive_id get_from_receive_id(uint32_t recv_id) {
 }
 
 
-static void all_motors(void (*application)(my_motor_t*)){
+void all_motors(void (*application)(my_motor_t*)){
 	for(int i =0;i<=sizeof(motors);i++)
 		(*application)(motors[i]);
 }
@@ -101,5 +128,6 @@ my_motor_t* find_motor_instance(motor_can_receive_id id){
 	for(int i=0;i<=sizeof(motors);i++)
 	 if(motors[i]->receive_id==id)
 		 return motors[i];
+	 else return NULL;
  }
 

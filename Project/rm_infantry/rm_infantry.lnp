@@ -11,6 +11,7 @@
 ".\rm_infantry\chassis_task.o"
 ".\rm_infantry\detect_task.o"
 ".\rm_infantry\execute_task.o"
+".\rm_infantry\device_task.o"
 ".\rm_infantry\chassis_custom.o"
 ".\rm_infantry\gimbal_custom.o"
 ".\rm_infantry\shoot_custom.o"

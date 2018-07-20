@@ -60,8 +60,10 @@ static short confirm_group(my_motor_t *instance);
 
 motor_can_receive_id get_from_receive_id(uint32_t recv_id);
 
-static void all_motors(void (*application)(my_motor_t*));
+void all_motors(void (*application)(my_motor_t*));
 
 void motor_device_run(my_motor_t *instance);
+
+void motor_device_init(my_motor_t *instance);
 
 #endif

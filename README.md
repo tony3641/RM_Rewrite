@@ -7,4 +7,6 @@ the rewrite of RoboMaster Summer Camp control framework.
 # ChangeLog
  - 7/19
     * 建立工程
-    * 添加 `motor_device.h` ,  `motor_device.c` , `motor_operation.h`，重新封装电机结构。
+    * 添加 `motor_device.h` ,  `motor_device.c` , `motor_operation.h`，重新封装电机结构
+ - 7/20
+    * 完善电机 PID 
