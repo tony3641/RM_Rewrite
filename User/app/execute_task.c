@@ -1,23 +1,23 @@
 #include "execute_task.h"
-#include "can_device.h"
-#include "uart_device.h"
+//#include "can_device.h"
+//#include "uart_device.h"
 #include "cmsis_os.h"
-#include "calibrate.h"
-#include "pid.h"
+//#include "pid.h"
 #include "sys.h"
 
-
+#include "motor_device.h"
 
 //uint8_t test_key_value;
-extern uint8_t test_servo;
+//extern uint8_t test_servo;
 
 //uint16_t servo_angle = 1000;
 
-
+extern my_motor_t *motors[];
 
 void execute_task(const void* argu)
 {
-   //测试电机初始化	
+	/*
+	//测试电机初始化	
    test_moto_init();
 
    while(1)
@@ -37,4 +37,11 @@ void execute_task(const void* argu)
 			
     osDelay(5);
   }
+	*/
+	
+	//motors[0]->mode=position_close_loop;
+	//motors[0]->target_position=300;
+	motors[0]->current=1000;
+
+	
 }

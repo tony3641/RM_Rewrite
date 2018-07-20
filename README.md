@@ -10,3 +10,4 @@ the rewrite of RoboMaster Summer Camp control framework.
     * 添加 `motor_device.h` ,  `motor_device.c` , `motor_operation.h`，重新封装电机结构
  - 7/20
     * 完善电机 PID 
+    * CAN 通信无法发送单电机电流，故重写该部分调用

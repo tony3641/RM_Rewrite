@@ -59,4 +59,5 @@ dkms.conf
 .dep
 .sct
 .lnp
-.afx
+*.axf
+*.htm

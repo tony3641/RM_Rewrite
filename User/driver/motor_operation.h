@@ -9,7 +9,7 @@ static void run_all_motors(my_motor_t *instance){
 }
 */
 
-my_motor_t* find_motor_instance(motor_can_receive_id id);
+my_motor_t* find_motor_by_id(motor_can_receive_id id);
 
 
 #endif

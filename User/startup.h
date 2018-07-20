@@ -36,6 +36,7 @@
 #include "gimbal_task.h"
 #include "execute_task.h"
 #include "cmsis_os.h"
+#include "device_task.h"
 
 /**
   * @brief     最多支持 5 个任务函数的配置和开启
@@ -43,7 +44,7 @@
   */
 //#define USER_TASK1 chassis_task
 //#define USER_TASK2 gimbal_task
-//#define USER_TASK3 detect_task
+#define USER_TASK3 device_task
 #define USER_TASK4 execute_task
 //#define USER_TASK5
 

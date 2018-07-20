@@ -51,9 +51,7 @@ moto_measure_t moto_test;
   */
 void can1_recv_callback(uint32_t recv_id, uint8_t data[])
 {
-
-	
-	  my_motor_t *motor = find_motor_instance(get_from_receive_id(recv_id));
+	  my_motor_t *motor = find_motor_by_id(get_from_receive_id(recv_id));
     if (motor != NULL) {
         motor->motor_mesure->msg_cnt++ <= 50 ? get_moto_offset(motor->motor_mesure, data) : \
          encoder_data_handle(motor->motor_mesure, data);

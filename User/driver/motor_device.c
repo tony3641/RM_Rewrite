@@ -4,20 +4,10 @@
 #include "motor_operation.h"
 #include <string.h>
 
-#define motor &(my_motor_t)
+my_motor_t default_motor={.current=0};
 
-#define chassis_lf motors[0]
-#define chassis_lb motors[1]
-#define chassis_rf motors[2]
-#define chassis_rb motors[3]
-
-
-
-my_motor_t *motors[4]={
-motor{CAN_M1_ID,CAN_SEND_A,"3500"},
-motor{CAN_M2_ID,CAN_SEND_A,"3508"},
-motor{CAN_M3_ID,CAN_SEND_A,"3508"},
-motor{CAN_M4_ID,CAN_SEND_A,"3508"},
+my_motor_t *motors[1]={
+	new_motor{CAN_M8_ID,"3508"}
 };
 
 void motor_device_init(my_motor_t *instance){
@@ -35,7 +25,6 @@ void motor_device_init(my_motor_t *instance){
 
 void motor_device_run(my_motor_t *instance) {
 	
-	
 	switch(instance->mode){
 		case open_loop:
 			break;
@@ -47,56 +36,59 @@ void motor_device_run(my_motor_t *instance) {
 			break;
 	}
 	
-	motor_device_can_communicate(instance,instance->current);
 }
 
-static void motor_device_can_communicate(my_motor_t *instance, int16_t current) {
-    static uint8_t _data[8];
+void motor_device_reset(my_motor_t *instance){
+	instance->mode=open_loop;
+	instance->target_position=0;
+	instance->target_speed=0;
+	instance->current=0;
+}
 
-//    data[0] = 0;
-//    data[1] = 0;
-//    data[2] = 0;
-//    data[3] = 0;
-//    data[4] = 0;
-//    data[5] = 0;
-//    data[6] = 0;
-//    data[7] = 0;
+void motors_can_communicateA(void){
+	static uint8_t _data[8];
 	
-	//TODO: T_T
-		
-    _data[to_index(instance->receive_id)] = current >> 8;
-    _data[to_index(instance->receive_id) + 1] = current;
-
-    write_can(CAN_1_CHANNEL_ID, confirm_group(instance) == 1 ? CAN_SEND_A : CAN_SEND_B, _data);
+	my_motor_t *m[4]={
+		find_motor_by_id(CAN_M1_ID),
+		find_motor_by_id(CAN_M2_ID),
+		find_motor_by_id(CAN_M3_ID),
+		find_motor_by_id(CAN_M4_ID)
+	};
+	
+	_data[0]=m[0]->current>>8;
+	_data[1]=m[0]->current;
+	_data[2]=m[1]->current>>8;
+	_data[3]=m[1]->current;
+	_data[4]=m[2]->current>>8;
+	_data[5]=m[2]->current;
+	_data[6]=m[3]->current>>8;
+	_data[7]=m[3]->current;
+	
+	write_can(CAN_1_CHANNEL_ID,CAN_SEND_A,_data);
 }
 
-static short to_index(motor_can_receive_id id) {
-
-    switch (id) {
-        case CAN_M5_ID:
-        case CAN_M1_ID:
-            return 0;
-        case CAN_M6_ID:
-        case CAN_M2_ID:
-            return 2;
-        case CAN_M7_ID:
-        case CAN_M3_ID:
-            return 4;
-        case CAN_M4_ID:
-        case CAN_M8_ID:
-            return 6;
-        default:
-            return 23333;
-    }
-
+void motors_can_communicateB(void){
+	static uint8_t _data[8];
+	
+	my_motor_t *m[4]={
+		find_motor_by_id(CAN_M5_ID),
+		find_motor_by_id(CAN_M6_ID),
+		find_motor_by_id(CAN_M7_ID),
+		find_motor_by_id(CAN_M8_ID)
+	};
+	
+	_data[0]=m[0]->current>>8;
+	_data[1]=m[0]->current;
+	_data[2]=m[1]->current>>8;
+	_data[3]=m[1]->current;
+	_data[4]=m[2]->current>>8;
+	_data[5]=m[2]->current;
+	_data[6]=m[3]->current>>8;
+	_data[7]=m[3]->current;
+	
+	write_can(CAN_1_CHANNEL_ID,CAN_SEND_B,_data);
 }
 
-static short confirm_group(my_motor_t *instance) {
-    motor_can_receive_id id = instance->receive_id;
-    if (id == CAN_M1_ID || id == CAN_M2_ID || id == CAN_M3_ID || id == CAN_M4_ID)
-        return 1;
-    else return 2;
-}
 
 motor_can_receive_id get_from_receive_id(uint32_t recv_id) {
     switch (recv_id) {
@@ -117,9 +109,10 @@ motor_can_receive_id get_from_receive_id(uint32_t recv_id) {
         case 0x208:
             return CAN_M8_ID;
 				default:
-					return NULL;
+					return CAN_DEEP_DARK_ID;
     }
 }
+
 
 
 void all_motors(void (*application)(my_motor_t*)){
@@ -127,10 +120,10 @@ void all_motors(void (*application)(my_motor_t*)){
 		(*application)(motors[i]);
 }
 
-my_motor_t* find_motor_instance(motor_can_receive_id id){
+my_motor_t* find_motor_by_id(motor_can_receive_id id){
 	for(int i=0;i<=sizeof(motors);i++)
 	 if(motors[i]->receive_id==id)
 		 return motors[i];
-	 else return NULL;
- }
+	return &default_motor;
+}
 
