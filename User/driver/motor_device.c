@@ -2,6 +2,7 @@
 #include "rm_hal_lib.h"
 #include "pid.h"
 #include "motor_operation.h"
+#include <string.h>
 
 #define motor &(my_motor_t)
 
@@ -13,19 +14,19 @@
 
 
 my_motor_t *motors[4]={
-motor{CAN_M1_ID,CAN_SEND_A},
-motor{CAN_M2_ID,CAN_SEND_A},
-motor{CAN_M3_ID,CAN_SEND_A},
-motor{CAN_M4_ID,CAN_SEND_A},
+motor{CAN_M1_ID,CAN_SEND_A,"3500"},
+motor{CAN_M2_ID,CAN_SEND_A,"3508"},
+motor{CAN_M3_ID,CAN_SEND_A,"3508"},
+motor{CAN_M4_ID,CAN_SEND_A,"3508"},
 };
 
 void motor_device_init(my_motor_t *instance){
-	if(1)//is 3508
+	if(strcmp(instance->model,"3508")==0)//is 3508
 	{
 		pid_init(instance->pid_position,7000,2333,1.9,0,50);
 		pid_init(instance->pid_speed,7000,2333,14,0.0381,8.6);
 	}
-	else if(0)//is 2006
+	else if(strcmp(instance->model,"2006")==0)//is 2006
 	{
 		pid_init(instance->pid_position,7000,2333,0.85,0.0003,20);
 		pid_init(instance->pid_speed,7000,2333,12,0.0001,8);
@@ -39,14 +40,14 @@ void motor_device_run(my_motor_t *instance) {
 		case open_loop:
 			break;
 		case speed_close_loop:
-			*instance->current=pid_calc(instance->pid_speed,instance->motor_mesure->speed_rpm,instance->target_speed);
+			instance->current=pid_calc(instance->pid_speed,instance->motor_mesure->speed_rpm,instance->target_speed);
 			break;
 		case position_close_loop:
-			*instance->current=pid_calc(instance->pid_position,instance->motor_mesure->total_angle,instance->target_position);
+			instance->current=pid_calc(instance->pid_position,instance->motor_mesure->total_angle,instance->target_position);
 			break;
 	}
 	
-	motor_device_can_communicate(instance,*instance->current);
+	motor_device_can_communicate(instance,instance->current);
 }
 
 static void motor_device_can_communicate(my_motor_t *instance, int16_t current) {
@@ -60,7 +61,9 @@ static void motor_device_can_communicate(my_motor_t *instance, int16_t current) 
 //    data[5] = 0;
 //    data[6] = 0;
 //    data[7] = 0;
-
+	
+	//TODO: T_T
+		
     _data[to_index(instance->receive_id)] = current >> 8;
     _data[to_index(instance->receive_id) + 1] = current;
 
