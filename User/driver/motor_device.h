@@ -20,7 +20,7 @@ typedef enum {
     CAN_M6_ID = 0x206,
     CAN_M7_ID = 0x207,
     CAN_M8_ID = 0x208,
-		CAN_VOID_ID=0x233
+		CAN_DEEP_DARK_ID=0x233
 } motor_can_receive_id;
 
 typedef enum {
@@ -44,7 +44,7 @@ typedef struct {
     motor_can_receive_id receive_id;
 
 			
-		char model[233];
+		char model[4];
 	  //motor_can_send_id send_id;
 	
     //can_channel channel;

@@ -53,11 +53,10 @@ Mkfile.old
 dkms.conf
 
 # fuck embedded
-.crf
-._i
-.htm
-.dep
-.sct
-.lnp
-*.axf
+*.crf
+*._i
 *.htm
+*.dep
+*.sct
+*.lnp
+*.axf
