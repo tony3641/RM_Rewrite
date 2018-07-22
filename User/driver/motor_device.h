@@ -9,7 +9,7 @@
 #define chassis_rf motors[2]
 #define chassis_rb motors[3]
 
-#define new_motor &(my_motor_t)
+#define new_motor (my_motor_t)
 
 typedef enum {
     CAN_M1_ID = 0x201,
@@ -81,5 +81,7 @@ void motor_device_init(my_motor_t *instance);
 void motor_device_reset(my_motor_t *instance);
 
 my_motor_t* find_motor_by_id(motor_can_receive_id id);
+
+void motors_array_init(void);
 
 #endif

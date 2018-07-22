@@ -4,44 +4,54 @@
 #include "cmsis_os.h"
 //#include "pid.h"
 #include "sys.h"
-
 #include "motor_device.h"
 
-//uint8_t test_key_value;
-//extern uint8_t test_servo;
 
-//uint16_t servo_angle = 1000;
+extern my_motor_t *motors_p[];
 
-extern my_motor_t *motors[];
+int state_number;
 
 void execute_task(const void* argu)
 {
-	/*
-	//测试电机初始化	
-   test_moto_init();
-
-   while(1)
-  {
-   //测试电机控制程序
-    test_moto_control();
-		
-		if(rc.sw2 == 3)
-			{
-		   test_servo=1;
-			}
-   
-		else
-		  {
-			(test_servo =0);
-		  }
-			
-    osDelay(5);
-  }
-	*/
-	
-	//motors[0]->mode=position_close_loop;
-	//motors[0]->target_position=300;
-	motors[0]->current=1000;
-
-	
+	while(1){
+		switch(state_number){
+			case 0:
+				motors_p[0]->current=1000;
+				jump_to(233);
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			default:
+				osDelay(5);
+				break;
+		}
+	}
 }
+
+
+void delay_us(uint32_t time)
+{
+  uint32_t i=8*time;
+  while(i--);
+}
+
+
+void jump_to(int number){
+	state_number=number;
+}
+
+void condition(int*f()){
+	if(*f()==1)
+		jump_to(state_number+1);
+}
+
+
+

@@ -5,8 +5,9 @@
 
 void execute_task(const void* argu);
 
-void test_moto_init(void);
-void test_moto_control(void);
+void jump_to(int number);
+
+void condition(int*f());
 
 #endif
 

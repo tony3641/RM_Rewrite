@@ -397,11 +397,6 @@
               <FilePath>..\User\driver\calibrate.c</FilePath>
             </File>
             <File>
-              <FileName>keyboard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\driver\keyboard.c</FilePath>
-            </File>
-            <File>
               <FileName>rm_hal_lib.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\User\rm_hal_lib.h</FilePath>
@@ -420,6 +415,11 @@
               <FileName>pid.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\algorithm\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>keyboard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\driver\keyboard.c</FilePath>
             </File>
             <File>
               <FileName>ramp.c</FileName>
@@ -460,6 +460,11 @@
               <FileName>device_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\app\device_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>daemon_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\app\daemon_task.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -11,3 +11,7 @@ the rewrite of RoboMaster Summer Camp control framework.
  - 7/20
     * 完善电机 PID 
     * CAN 通信无法发送单电机电流，故重写该部分调用
+ - 7/22
+    * 修复全部电机空指针问题
+    * 尝试使用状态机实现自动程序
+    * 以上全部未经测试 :joy:
