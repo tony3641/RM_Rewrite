@@ -45,7 +45,6 @@ uint8_t   dbus_recv[DBUS_FRAME_SIZE];
 void dbus_uart_callback(void)
 {
   remote_data_handle(&rc, dbus_recv);
-  err_detector_hook(REMOTE_CTRL_OFFLINE);
 }
 
 /**

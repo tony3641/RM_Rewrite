@@ -54,9 +54,6 @@ void init_setup(void)
   write_led_io(LED_IO7, LED_OFF);
   write_led_io(LED_IO8, LED_OFF);
   
-  //读取全局校准数据
-  read_cali_data();
-  
   //初始化遥控器接收串口
   uart_init(DBUS_UART, 100000, WORD_LEN_8B, STOP_BITS_1, PARITY_EVEN);
   //注册遥控器接收数据回调函数

@@ -55,8 +55,8 @@ typedef struct {
 		motor_mode mode;
     int target_speed;
     int target_position;
-    pid_t *pid_position;
-    pid_t *pid_speed;
+    pid_t pid_position;
+    pid_t pid_speed;
 
     //reference
     moto_measure_t *motor_mesure;

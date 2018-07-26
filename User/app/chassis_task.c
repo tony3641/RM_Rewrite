@@ -60,17 +60,7 @@ void chassis_task(const void* argu)
     switch (chassis.mode)
     {
       //底盘跟随云台模式，右侧拨杆在上面
-      case CHASSIS_FOLLOW_GIMBAL:
-      {
-        chassis_control_information_get();
-        
-        //底盘跟随云台旋转控制，覆盖前面计算出来的值
-        if ((gim.ctrl_mode == GIMBAL_CLOSE_LOOP_ZGYRO)
-         || ((gim.ctrl_mode == GIMBAL_NO_ACTION) && (gim.no_action_flag == 1)))
-          chassis.vw = pid_calc(&pid_chassis_angle, yaw_relative_angle, 0);
-        else
-          chassis.vw = 0;
-      }break;
+    
       
       //底盘开环模式，右侧拨杆在中间
       //此模式适用于不装云台情况下单独控制底盘使用
@@ -96,7 +86,7 @@ void chassis_task(const void* argu)
       }break;
     }
     
-    if (chassis.mode == CHASSIS_RELAX || glb_err.err_list[REMOTE_CTRL_OFFLINE].err_exist)
+    if (chassis.mode == CHASSIS_RELAX)
     {
       send_chassis_moto_zero_current();
     }

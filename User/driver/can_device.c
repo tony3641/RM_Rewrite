@@ -44,6 +44,8 @@ moto_measure_t moto_chassis[4];
 /* 外围模块测试电机 */
 moto_measure_t moto_test;
 
+moto_measure_t encoders[8];
+
 /**
   * @brief     CAN1 中断回调函数，在程序初始化时注册
   * @param     recv_id: CAN1 接收到的数据 ID
@@ -166,52 +168,3 @@ void send_chassis_moto_zero_current(void)
   write_can(CHASSIS_CAN, CAN_CHASSIS_ID, data);
 }
 
-/**
-  * @brief     发送云台电机电流数据到电调
-  */
-extern int16_t trigger_moto_current;
-void send_gimbal_moto_current(int16_t yaw_current, int16_t pit_current)
-{
-  static uint8_t data[8];
-  int16_t trigger_current = trigger_moto_current;
-  
-  data[0] = -yaw_current >> 8;
-  data[1] = -yaw_current;
-  data[2] = pit_current >> 8;
-  data[3] = pit_current;
-  data[4] = trigger_current >> 8;
-  data[5] = trigger_current;
-  data[6] = 0;
-  data[7] = 0;
-  
-  write_can(GIMBAL_CAN, CAN_GIMBAL_ID, data);
-}
-void send_gimbal_moto_zero_current(void)
-{
-  static uint8_t data[8];
-  
-  data[0] = 0;
-  data[1] = 0;
-  data[2] = 0;
-  data[3] = 0;
-  data[4] = 0;
-  data[5] = 0;
-  data[6] = 0;
-  data[7] = 0;
-  
-  write_can(GIMBAL_CAN, CAN_GIMBAL_ID, data);
-}
-void set_test_motor_current(int16_t test_moto_current[])
-{
-  static uint8_t data[8];
-  
-  data[0] = 0;
-  data[1] = 0;
-  data[2] = 0;
-  data[3] = 0;
-  data[4] = 0;
-  data[5] = 0;
-  data[6] = test_moto_current[0] >> 8;;
-  data[7] = test_moto_current[0];;
-  write_can(CHASSIS_CAN, CAN_GIMBAL_ID, data);
-}

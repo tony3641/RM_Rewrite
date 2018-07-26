@@ -392,11 +392,6 @@
               <FilePath>..\User\driver\uart_device.c</FilePath>
             </File>
             <File>
-              <FileName>calibrate.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\driver\calibrate.c</FilePath>
-            </File>
-            <File>
               <FileName>rm_hal_lib.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\User\rm_hal_lib.h</FilePath>
@@ -437,19 +432,9 @@
               <FilePath>..\User\startup.c</FilePath>
             </File>
             <File>
-              <FileName>gimbal_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\app\gimbal_task.c</FilePath>
-            </File>
-            <File>
               <FileName>chassis_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\app\chassis_task.c</FilePath>
-            </File>
-            <File>
-              <FileName>detect_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\app\detect_task.c</FilePath>
             </File>
             <File>
               <FileName>execute_task.c</FileName>
@@ -460,11 +445,6 @@
               <FileName>device_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\app\device_task.c</FilePath>
-            </File>
-            <File>
-              <FileName>daemon_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\app\daemon_task.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -477,24 +457,9 @@
               <FilePath>..\User\app\chassis_custom.c</FilePath>
             </File>
             <File>
-              <FileName>gimbal_custom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\app\gimbal_custom.c</FilePath>
-            </File>
-            <File>
-              <FileName>shoot_custom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\app\shoot_custom.c</FilePath>
-            </File>
-            <File>
               <FileName>sys.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\User\sys.h</FilePath>
-            </File>
-            <File>
-              <FileName>test_custom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\test_custom.c</FilePath>
             </File>
           </Files>
         </Group>

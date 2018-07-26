@@ -2,14 +2,17 @@
 #include "motor_device.h"
 #include "cmsis_os.h"
 
-extern my_motor_t *motors[];
+//extern my_motor_t *motors_p[];
 
+/*
 my_motor_t *ma[4];
 	
 my_motor_t *mb[4];
+*/
 
 void device_task(const void* argu){
-	
+		motors_array_init();
+	/*
 		ma[0]=find_motor_by_id(CAN_M1_ID);
 		ma[1]=find_motor_by_id(CAN_M2_ID);
 		ma[2]=find_motor_by_id(CAN_M3_ID);
@@ -21,7 +24,7 @@ void device_task(const void* argu){
 		mb[1]=find_motor_by_id(CAN_M6_ID),
 		mb[2]=find_motor_by_id(CAN_M7_ID),
 		mb[3]=find_motor_by_id(CAN_M8_ID);
-
+*/
 		all_motors(motor_device_init);
 		all_motors(motor_device_reset);
 	

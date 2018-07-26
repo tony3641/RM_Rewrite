@@ -46,7 +46,7 @@
 //#define USER_TASK2 gimbal_task
 #define USER_TASK3 device_task
 #define USER_TASK4 execute_task
-#define USER_TASK5 daemon_task
+//#define USER_TASK5 daemon_task
 
 /**
   * @brief     在任务函数执行前运行，可以用来初始化任务中用到的 IO 端口，

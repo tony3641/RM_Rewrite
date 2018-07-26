@@ -15,3 +15,6 @@ the rewrite of RoboMaster Summer Camp control framework.
     * 修复全部电机空指针问题
     * 尝试使用状态机实现自动程序
     * 以上全部未经测试 :joy:
+- 7/26
+    * 弃用电机指针，改为全局共享值变量
+    * 无法正常运行

@@ -68,7 +68,7 @@ void chassis_custom_control(void)
   chassis_close_loop_calculate();
   
   //将计算好的电流值发送给电调
-  send_chassis_moto_current(chassis_moto_current);
+ // send_chassis_moto_current(chassis_moto_current);
 }
 
 /* 底盘的运动分解处理 */
@@ -142,8 +142,8 @@ void chassis_twist_handle(void)
   /* 扭腰最大角度限制 */
   static int16_t twist_angle  = TWIST_ANGLE;
   /* 生成扭腰角度 */
-  static float   chassis_angle_target;
+//  static float   chassis_angle_target;
   twist_count++;
-  chassis_angle_target = twist_angle*sin(2*3.14/twist_period*twist_count);
-  chassis.vw = pid_calc(&pid_chassis_angle, yaw_relative_angle, chassis_angle_target);
+ // chassis_angle_target = twist_angle*sin(2*3.14/twist_period*twist_count);
+//  chassis.vw = pid_calc(&pid_chassis_angle, yaw_relative_angle, chassis_angle_target);
 }

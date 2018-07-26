@@ -7,16 +7,25 @@
 #include "motor_device.h"
 
 
-extern my_motor_t *motors_p[];
 
-int state_number;
+extern my_motor_t motors[];
+
+int state_number=0;
 
 void execute_task(const void* argu)
 {
+	osDelay(100);
+	
+	while(1)
+	{		
+		motors[7].current=500;
+		osDelay(100);
+	}
+	/*
 	while(1){
 		switch(state_number){
 			case 0:
-				motors_p[0]->current=1000;
+				motors_p[7]->current=1000;
 				jump_to(233);
 				break;
 			case 1:
@@ -30,10 +39,12 @@ void execute_task(const void* argu)
 			case 5:
 				break;
 			default:
-				osDelay(5);
+				//jump_to(0);
 				break;
 		}
+		osDelay(5);
 	}
+	*/
 }
 
 
